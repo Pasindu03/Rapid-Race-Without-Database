@@ -20,6 +20,7 @@ import org.example.rapidracewithoutdatabase.model.HorseController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class MainFormController implements Initializable {
@@ -102,6 +103,57 @@ public class MainFormController implements Initializable {
         TableColumnImage.setCellValueFactory(new PropertyValueFactory<>("image"));
     }
 
+
+
+    public void SelectFirstSecondThirdPlacesOfTheRace(ActionEvent actionEvent) {
+        if (!IsRaceButtonIsOn || randomHorses.isEmpty()) {
+            showAlert("Error", "Cannot start race or no random horses selected.");
+            return;
+        }
+
+        Random random = new Random();
+        for (Horse horse : randomHorses) {
+            int raceTime = random.nextInt(81) + 10;
+            horse.setRaceTime(raceTime);
+        }
+
+        int n = randomHorses.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (randomHorses.get(j).getRaceTime() > randomHorses.get(j + 1).getRaceTime()) {
+                    Horse temp = randomHorses.get(j);
+                    randomHorses.set(j, randomHorses.get(j + 1));
+                    randomHorses.set(j + 1, temp);
+                }
+            }
+        }
+
+        // Show the  race results
+        StringBuilder raceResultDetails = new StringBuilder("Race Results:\n");
+        for (int i = 0; i < Math.min(randomHorses.size(), 3); i++) {
+            int place = i + 1;
+            String horseName = randomHorses.get(i).getName();
+            int raceTime = randomHorses.get(i).getRaceTime();
+            String formattedRaceTime = raceTime + "s";
+            raceResultDetails.append(place).append(". ").append(horseName).append(" - Time: ").append(formattedRaceTime).append("\n");
+
+            switch (place) {
+                case 1:
+                    NameOfFirstPlace.setText(horseName);
+                    TimeOfFirstPlace.setText(formattedRaceTime);
+                    break;
+                case 2:
+                    NameOfSecondPlace.setText(horseName);
+                    TimeOfSecondPlace.setText(formattedRaceTime);
+                    break;
+                case 3:
+                    NameOfThirdPlace.setText(horseName);
+                    TimeOfThirdPlace.setText(formattedRaceTime);
+                    break;
+            }
+        }
+        showAlert("Race Results", raceResultDetails.toString());
+    }
 
     public void VisualizeFirstSecondThirdPlacesTimeOfTheRace(ActionEvent actionEvent) {
         // Check if the race has been started and winners have been selected
