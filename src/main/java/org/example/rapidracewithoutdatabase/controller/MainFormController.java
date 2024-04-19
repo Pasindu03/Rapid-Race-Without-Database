@@ -103,7 +103,74 @@ public class MainFormController implements Initializable {
         TableColumnImage.setCellValueFactory(new PropertyValueFactory<>("image"));
     }
 
+    public void StartRaceAndSetHorsesForTheRace(ActionEvent actionEvent) {
+        if (IsRaceButtonIsOn) {
+            showAlert("Error", "Cannot select random horses. Race has already started.");
+            return;
+        }
 
+        // make raceStarted flag to true
+        IsRaceButtonIsOn = true;
+
+        // Check if each group has at least one horse in them
+        boolean groupAExists = false;
+        boolean groupBExists = false;
+        boolean groupCExists = false;
+        boolean groupDExists = false;
+
+        // Iterate through the horses to check their groups and select random horses for each group
+        List<Horse> groupAHorses = new ArrayList<>();
+        List<Horse> groupBHorses = new ArrayList<>();
+        List<Horse> groupCHorses = new ArrayList<>();
+        List<Horse> groupDHorses = new ArrayList<>();
+
+        for (Horse horse : horseController.getHorses()) {
+            switch (horse.getGroup()) {
+                case "A":
+                    groupAExists = true;
+                    groupAHorses.add(horse);
+                    break;
+                case "B":
+                    groupBExists = true;
+                    groupBHorses.add(horse);
+                    break;
+                case "C":
+                    groupCExists = true;
+                    groupCHorses.add(horse);
+                    break;
+                case "D":
+                    groupDExists = true;
+                    groupDHorses.add(horse);
+                    break;
+            }
+        }
+
+        // If one of the group does not have atleast one horse show the error message
+        if (!(groupAExists && groupBExists && groupCExists && groupDExists)) {
+            showAlert("Error", "Each group must have at least one member.");
+            IsRaceButtonIsOn = false;
+            return;
+        }
+        //randomly selected 4 horses are added to the randomHorses List
+
+        Random random = new Random();
+        Horse selectedGroupAHorse = groupAHorses.get(random.nextInt(groupAHorses.size()));
+        Horse selectedGroupBHorse = groupBHorses.get(random.nextInt(groupBHorses.size()));
+        Horse selectedGroupCHorse = groupCHorses.get(random.nextInt(groupCHorses.size()));
+        Horse selectedGroupDHorse = groupDHorses.get(random.nextInt(groupDHorses.size()));
+
+        // Set the text of the JFXTextField components with the details of the selected horses
+        SelectHorseFromGroupA.setText(selectedGroupAHorse.toString());
+        SelectHorseFromGroupB.setText(selectedGroupBHorse.toString());
+        SelectHorseFromGroupC.setText(selectedGroupCHorse.toString());
+        SelectHorseFromGroupD.setText(selectedGroupDHorse.toString());
+
+        // Adding  horses to the randomHorses list
+        randomHorses.add(selectedGroupAHorse);
+        randomHorses.add(selectedGroupBHorse);
+        randomHorses.add(selectedGroupCHorse);
+        randomHorses.add(selectedGroupDHorse);
+    }
 
     public void SelectFirstSecondThirdPlacesOfTheRace(ActionEvent actionEvent) {
         if (!IsRaceButtonIsOn || randomHorses.isEmpty()) {
