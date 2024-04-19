@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -89,8 +91,6 @@ public class MainFormController implements Initializable {
 
         this.horseController = new HorseController();
 
-        /*loadPreExistingData();*/
-
         TableColumnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         TableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         TableColumnAge.setCellValueFactory(new PropertyValueFactory<>("age"));
@@ -100,5 +100,34 @@ public class MainFormController implements Initializable {
         TableColumnRacesWonCount.setCellValueFactory(new PropertyValueFactory<>("racesWon"));
         TableColumnGroup.setCellValueFactory(new PropertyValueFactory<>("group"));
         TableColumnImage.setCellValueFactory(new PropertyValueFactory<>("image"));
+    }
+
+
+    public void VisualizeFirstSecondThirdPlacesTimeOfTheRace(ActionEvent actionEvent) {
+        // Check if the race has been started and winners have been selected
+        if (NameOfFirstPlace.getText().isEmpty() || NameOfSecondPlace.getText().isEmpty() || NameOfThirdPlace.getText().isEmpty()) {
+            showAlert("Error", "Cannot visualize race times. Winners have not been selected yet.");
+            return;
+        }
+
+        // Clear existing data in the bar chart
+        VisualizingWinnerTimeBarChart.getData().clear();
+
+        // Create series for each winner
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data<>("First Place", Integer.parseInt(TimeOfFirstPlace.getText().replaceAll("[^\\d]", ""))));
+        series.getData().add(new XYChart.Data<>("Second Place", Integer.parseInt(TimeOfSecondPlace.getText().replaceAll("[^\\d]", ""))));
+        series.getData().add(new XYChart.Data<>("Third Place", Integer.parseInt(TimeOfThirdPlace.getText().replaceAll("[^\\d]", ""))));
+
+        // Add series to the bar chart
+        VisualizingWinnerTimeBarChart.getData().add(series);
+    }
+
+    private static void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
