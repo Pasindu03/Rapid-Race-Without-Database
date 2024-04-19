@@ -122,7 +122,7 @@ public class MainFormController implements Initializable {
         int won = Integer.parseInt(racesWon);
         int participated = Integer.parseInt(racesParticipated);
         if (won > participated) {
-            showAlert("Error", "Number of races won cannot exceed the number of races participated.");
+            showAlert("Error", "Number of race won cannot exceed the number of races participated.");
             return false;
         }
         return racesWon.matches("^\\d{1,2}$");
