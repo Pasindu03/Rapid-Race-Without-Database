@@ -13,15 +13,18 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import org.example.rapidracewithoutdatabase.model.Horse;
 import org.example.rapidracewithoutdatabase.model.HorseController;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainFormController implements Initializable {
     public Pane HorsePane;
@@ -103,6 +106,80 @@ public class MainFormController implements Initializable {
         TableColumnImage.setCellValueFactory(new PropertyValueFactory<>("image"));
     }
 
+    public void SaveToFileWhenDataEntered(ActionEvent actionEvent) {
+        List<Horse>HorseList=horseController.getHorses();
+        try {
+            File file = new File("Horse_details.txt");
+            FileWriter writer = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            // Iterate over unique groups
+            Set<String> uniqueGroups = new HashSet<>();
+            for (Horse horse : HorseList) {
+                uniqueGroups.add(horse.getGroup());
+            }
+
+            // Write horse details for each group
+            for (String group : uniqueGroups) {
+                bufferedWriter.write("Group " + group + ":\n");
+                for (Horse horse : HorseList) {
+                    if (horse.getGroup().equals(group)) {
+                        bufferedWriter.write("Horse ID : " + horse.getId() + ",");
+                        bufferedWriter.write(" Name : " + horse.getName() + ",");
+                        bufferedWriter.write(" Age : " + horse.getAge() + ",");
+                        bufferedWriter.write(" Breed : " + horse.getBreed() + ",");
+                        bufferedWriter.write(" Jockey Name : " + horse.getJockeyName() + ",");
+                        bufferedWriter.write(" Races Participated : " + horse.getRacesParticipated() + ",");
+                        bufferedWriter.write(" Races Won : " + horse.getRacesWon() + ",");
+                        bufferedWriter.write("Image Path : " + horse.getImage() + "\n");
+                    }
+                }
+                bufferedWriter.write("\n");
+            }
+
+            bufferedWriter.close();
+            showAlert("HorseDetails.txt", "File Saved Successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("HorseDetails.txt", "File Save was Unsuccessful.");
+        }
+    }
+
+    public void TableClickToSelectRowOfData(MouseEvent mouseEvent) {
+        Horse selectedHorse = ViewHorsesTable.getSelectionModel().getSelectedItem();
+
+        IdTextField.setText(String.valueOf(selectedHorse.getId()));
+        NameTextField.setText(selectedHorse.getName());
+        AgeTextField.setText(String.valueOf(selectedHorse.getAge()));
+        BreedTextField.setText(selectedHorse.getBreed());
+        JockeyTextField.setText(selectedHorse.getJockeyName());
+        ParticipatedRacesCountTextField.setText(String.valueOf(selectedHorse.getRacesParticipated()));
+        WonRacesCountTextField.setText(String.valueOf(selectedHorse.getRacesWon()));
+        GroupTextField.setText(selectedHorse.getGroup());
+        if (selectedHorse.getImage() != null) {
+            ViewHorseImage.setImage(selectedHorse.getImage());
+        }
+    }
+
+    public void AddImageToTheHorseClass(ActionEvent actionEvent) {
+        ImageButtonClicked.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select Image");
+
+            File initialDirectory = new File(System.getProperty("user.home"));
+            fileChooser.setInitialDirectory(initialDirectory);
+
+            FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
+            fileChooser.getExtensionFilters().add(imageFilter);
+
+            File selectedFile = fileChooser.showOpenDialog(ImageButtonClicked.getScene().getWindow());
+
+            if (selectedFile != null) {
+                Image image = new Image(selectedFile.toURI().toString());
+                ViewHorseImage.setImage(image);
+            }
+        });
+    }
     public void StartRaceAndSetHorsesForTheRace(ActionEvent actionEvent) {
         if (IsRaceButtonIsOn) {
             showAlert("Error", "Cannot select random horses. Race has already started.");
