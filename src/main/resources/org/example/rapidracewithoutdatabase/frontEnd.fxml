@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane prefHeight="734.0" prefWidth="1104.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.rapidracewithoutdatabase.controller.MainFormController">
+    <children>
+        <Label fx:id="MainTitle" layoutX="364.0" layoutY="14.0" stylesheets="@css.css" text="Welcome To Rapid Race">
+            <font>
+                <Font name="CordiaUPC" size="52.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="PaneHorseSelector" buttonType="RAISED" contentDisplay="TOP" layoutX="10.0" layoutY="150.0" onAction="#HorsePaneSelector" prefHeight="142.0" prefWidth="129.0" stylesheets="@css.css" text="Horse">
+            <graphic>
+                <ImageView fitHeight="111.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/horse.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="PaneRaceSelector" buttonType="RAISED" contentDisplay="TOP" layoutX="10.0" layoutY="315.0" onAction="#RaceOnAction" prefHeight="153.0" prefWidth="145.0" stylesheets="@css.css" text="Race">
+            <graphic>
+                <ImageView fitHeight="107.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/horse-riding.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="PaneExitApplication" buttonType="RAISED" contentDisplay="TOP" layoutX="10.0" layoutY="485.0" onAction="#ExitOnAction" prefHeight="142.0" prefWidth="129.0" stylesheets="@css.css" text="Exit">
+            <graphic>
+                <ImageView fitHeight="111.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/exit.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <StackPane layoutX="159.0" layoutY="90.0" prefHeight="644.0" prefWidth="947.0">
+            <children>
+                <Pane fx:id="HorsePane" prefHeight="655.0" prefWidth="840.0">
+                    <children>
+                        <JFXTextField fx:id="IdTextField" layoutX="63.0" layoutY="55.0" promptText="Horse ID" />
+                        <JFXTextField fx:id="NameTextField" layoutX="259.0" layoutY="55.0" promptText="Horse Name" />
+                        <JFXTextField fx:id="AgeTextField" layoutX="474.0" layoutY="55.0" promptText="Age" />
+                        <JFXTextField fx:id="BreedTextField" layoutX="708.0" layoutY="55.0" promptText="Breed" />
+                        <JFXTextField fx:id="JockeyTextField" layoutX="63.0" layoutY="131.0" promptText="Jockey Name" />
+                        <JFXTextField fx:id="ParticipatedRacesCountTextField" layoutX="259.0" layoutY="131.0" promptText="Races Participated" />
+                        <JFXTextField fx:id="WonRacesCountTextField" layoutX="474.0" layoutY="131.0" promptText="Races Won" />
+                        <JFXTextField fx:id="GroupTextField" layoutX="708.0" layoutY="131.0" promptText="Group" />
+                        <JFXButton fx:id="AddHorseButton" buttonType="RAISED" layoutX="500.0" layoutY="215.0" onAction="#AddHorseWhenEntered" text="Add" />
+                        <JFXButton fx:id="UpdateHorseButton" buttonType="RAISED" layoutX="565.0" layoutY="215.0" onAction="#UpdateHorseWhenSelected" text="Update" />
+                        <JFXButton fx:id="DeleteHorseButton" buttonType="RAISED" layoutX="650.0" layoutY="215.0" onAction="#DeleteHorseWhenSelected" text="Delete" />
+                        <JFXButton fx:id="ClearHorseButton" buttonType="RAISED" layoutX="730.0" layoutY="215.0" onAction="#ClearTextFields" text="Clear" />
+                        <JFXButton fx:id="SaveHorseDataFile" buttonType="RAISED" layoutX="800.0" layoutY="215.0" onAction="#SaveToFileWhenDataEntered" stylesheets="@css.css" text="Save" />
+                        <TableView fx:id="ViewHorsesTable" layoutY="289.0" onMouseClicked="#TableClickToSelectRowOfData" prefHeight="356.0" prefWidth="947.0" stylesheets="@css.css">
+                            <columns>
+                                <TableColumn fx:id="TableColumnID" prefWidth="82.0" text="Horse ID" />
+                                <TableColumn fx:id="TableColumnName" prefWidth="139.0" text="Horse Name" />
+                                <TableColumn fx:id="TableColumnAge" prefWidth="58.0" text="Age" />
+                                <TableColumn fx:id="TableColumnBreed" prefWidth="100.0" text="Breed" />
+                                <TableColumn fx:id="TableColumnJockey" prefWidth="149.0" text="Jockey Name" />
+                                <TableColumn fx:id="TableColumnRacesParticipatedCount" prefWidth="139.0" text="Participated" />
+                                <TableColumn fx:id="TableColumnRacesWonCount" prefWidth="94.0" text="Won" />
+                                <TableColumn fx:id="TableColumnGroup" prefWidth="94.0" text="Group" />
+                                <TableColumn fx:id="TableColumnImage" prefWidth="91.0" text="Image" />
+                            </columns>
+                        </TableView>
+                        <JFXButton fx:id="ImageButtonClicked" buttonType="RAISED" layoutX="230.0" layoutY="215.0" onAction="#AddImageToTheHorseClass" prefHeight="25.0" prefWidth="129.0" stylesheets="@css.css" text="Select Image" />
+                        <ImageView fx:id="ViewHorseImage" fitHeight="100.0" fitWidth="100.0" layoutX="80.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                </Pane>
+                <Pane fx:id="RacePane" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <JFXTextField fx:id="SelectHorseFromGroupA" layoutX="106.0" prefHeight="25.0" prefWidth="736.0" />
+                        <JFXTextField fx:id="SelectHorseFromGroupB" layoutX="106.0" layoutY="41.0" prefHeight="25.0" prefWidth="736.0" />
+                        <JFXTextField fx:id="SelectHorseFromGroupC" layoutX="106.0" layoutY="82.0" prefHeight="25.0" prefWidth="736.0" />
+                        <JFXTextField fx:id="SelectHorseFromGroupD" layoutX="106.0" layoutY="121.0" prefHeight="25.0" prefWidth="736.0" />
+                        <Label layoutX="48.0" layoutY="6.0" text="Group A : " />
+                        <Label layoutX="47.0" layoutY="127.0" text="Group D : " />
+                        <Label layoutX="48.0" layoutY="88.0" text="Group C : " />
+                        <Label layoutX="49.0" layoutY="47.0" text="Group B : " />
+                        <JFXButton fx:id="StartRaceButton" buttonType="RAISED" layoutX="794.0" layoutY="157.0" onAction="#StartRaceAndSetHorsesForTheRace" prefHeight="38.0" prefWidth="100.0" stylesheets="@css.css" text="Start Race" />
+                        <Line endX="846.0" layoutX="101.0" layoutY="202.0" startX="-100.0" />
+                        <Line endX="846.0" layoutX="101.0" layoutY="427.0" startX="-100.0" />
+                        <Label layoutX="104.0" layoutY="241.0" text="First Place :">
+                            <font>
+                                <Font size="15.0" />
+                            </font></Label>
+                        <Label layoutX="104.0" layoutY="291.0" text="Second Place :">
+                            <font>
+                                <Font size="15.0" />
+                            </font></Label>
+                        <Label layoutX="104.0" layoutY="347.0" text="Third Place">
+                            <font>
+                                <Font size="15.0" />
+                            </font></Label>
+                        <JFXButton fx:id="SelectWinnerButton" buttonType="RAISED" layoutX="571.0" layoutY="255.0" onAction="#SelectFirstSecondThirdPlacesOfTheRace" prefHeight="124.0" prefWidth="135.0" stylesheets="@css.css" text="Select Winner" />
+                        <JFXButton fx:id="VisualizeWinnerTimeButton" buttonType="RAISED" layoutX="762.0" layoutY="255.0" onAction="#VisualizeFirstSecondThirdPlacesTimeOfTheRace" prefHeight="124.0" prefWidth="135.0" stylesheets="@css.css" text="Visualize Results" />
+                        <Label layoutX="249.0" layoutY="210.0" text="Name" />
+                        <Label layoutX="379.0" layoutY="210.0" text="Time" />
+                        <JFXTextField fx:id="NameOfFirstPlace" layoutX="213.0" layoutY="237.0" prefHeight="25.0" prefWidth="103.0" />
+                        <JFXTextField fx:id="NameOfSecondPlace" layoutX="213.0" layoutY="287.0" prefHeight="25.0" prefWidth="103.0" />
+                        <JFXTextField fx:id="NameOfThirdPlace" layoutX="213.0" layoutY="343.0" prefHeight="25.0" prefWidth="103.0" />
+                        <JFXTextField fx:id="TimeOfFirstPlace" layoutX="340.0" layoutY="237.0" prefHeight="25.0" prefWidth="103.0" />
+                        <JFXTextField fx:id="TimeOfSecondPlace" layoutX="340.0" layoutY="287.0" prefHeight="25.0" prefWidth="103.0" />
+                        <JFXTextField fx:id="TimeOfThirdPlace" layoutX="340.0" layoutY="343.0" prefHeight="25.0" prefWidth="103.0" />
+                        <BarChart fx:id="VisualizingWinnerTimeBarChart" categoryGap="5.0" layoutX="37.0" layoutY="438.0" prefHeight="193.0" prefWidth="819.0" stylesheets="@css.css">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" upperBound="90.0" />
+                            </yAxis>
+                        </BarChart>
+                    </children>
+                </Pane>
+            </children>
+        </StackPane>
+    </children>
+
+</AnchorPane>

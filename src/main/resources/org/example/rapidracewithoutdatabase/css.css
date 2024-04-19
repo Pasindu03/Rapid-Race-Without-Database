@@ -1,0 +1,180 @@
+#PaneHorseSelector {
+    -fx-background-color: #4169E1; /* Royal Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#PaneHorseSelector:hover{
+    -fx-background-color: #1E90FF; /* Darker Royal Blue on hover */
+}
+
+#PaneHorseSelector:focused{
+    -fx-background-color: #1E90FF; /* Darker Royal Blue on focus */
+}
+
+#PaneRaceSelector{
+    -fx-background-color: #4169E1; /* Royal Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#PaneRaceSelector:hover{
+    -fx-background-color: #1E90FF; /* Darker Royal Blue on hover */
+}
+
+#PaneRaceSelector:focused{
+    -fx-background-color: #1E90FF; /* Darker Royal Blue on hover */
+}
+
+#PaneExitApplication{
+    -fx-background-color: #4169E1; /* Royal Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#MainTitle{
+    -fx-text-fill: blue;
+    -fx-font-size: 44px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+}
+
+/* styles.css */
+.chart-bar {
+    -fx-bar-fill: #2196F3; /* Bar color */
+}
+
+.chart-legend {
+    -fx-font-size: 12px; /* Legend font size */
+}
+
+.text-field{
+    -fx-font-size: 14px;
+}
+
+#AddHorseButton{
+    -fx-background-color: #3085f3; /* Gold */
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#UpdateHorseButton{
+    -fx-background-color: #3085f3; /* Gold */
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#DeleteHorseButton{
+    -fx-background-color: #3085f3; /* Gold */
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#ClearHorseButton{
+    -fx-background-color: #3085f3; /* Gold */
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#SaveHorseDataFile{
+    -fx-background-color: #3085f3; /* Gold */
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#ImageButtonClicked{
+    -fx-background-color: #4169E1; /* Royal Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+#VisualizeWinnerTimeButton{
+    -fx-background-color: #3085f3; /* Royal Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 50px;
+}
+
+#SelectWinnerButton{
+    -fx-background-color: #3085f3; /* Royal Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 50px;
+}
+
+#StartRaceButton{
+    -fx-background-color: #3085f3; /* Royal Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+/* Style for table */
+.table-view {
+    -fx-font-size: 14px;
+}
+
+/* Style for table header */
+.table-view .column-header {
+    -fx-background-color: #b0c4de; /* Light Steel Blue */
+    -fx-text-fill: white;
+}
+
+/* Style for table cell */
+.table-cell {
+    -fx-padding: 8px;
+}
+
+/* Style for even rows */
+.table-row-cell:even {
+    -fx-background-color: #e6e6fa; /* Lavender */
+}
+
+/* Style for odd rows */
+.table-row-cell:odd {
+    -fx-background-color: #729ee3; /* Thistle */
+}
+
+/* Style for selected rows */
+.table-row-cell:selected {
+    -fx-background-color: #3085f3; /* Medium Purple */
+}
+
+/* Style for alternating row colors in selected rows */
+.table-row-cell:odd:selected,
+.table-row-cell:even:selected {
+    -fx-background-color: #4169E1; /* Blue Violet */
+}
